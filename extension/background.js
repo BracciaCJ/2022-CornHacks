@@ -1,33 +1,23 @@
-function appendDisabilitiesToURL(url) {
-  chrome.storage.sync.get(
-    {
-      blind: false,
-      deaf: false,
-      colorBlind: false,
-    },
-    function (items) {
-      url = items.blind.toString() + items.deaf.toString() + items.colorBlind.toString()
-    });
-  return url;
-}
-
 async function getA11yScores() {
   // Find all Google Search Results containers
   var searchBody = document.getElementById("search");
   var linkElements = searchBody.getElementsByTagName("a");
   let ending = "";
-  await chrome.storage.sync.get(
-    {
-      blind: false,
-      deaf: false,
-      colorBlind: false,
-    },
-    function (items) {
-      ending = ending + 'b' + (items.blind ? 't' : 'f');
-      ending = ending + 'd' + (items.deaf ? 't' : 'f');
-      ending = ending + 'c' + (items.colorBlind ? 't' : 'f');
-      console.log(ending)
-      if (linkElements) {
+  // Check that link elements were returned
+  if (linkElements) {
+    // Get the stored values for what disabilities the user has
+    await chrome.storage.sync.get(
+      {
+        blind: false,
+        deaf: false,
+        colorBlind: false,
+      },
+      function (items) {
+        // Update the ending based on the stored values
+        ending = ending + 'b' + (items.blind ? 't' : 'f');
+        ending = ending + 'd' + (items.deaf ? 't' : 'f');
+        ending = ending + 'c' + (items.colorBlind ? 't' : 'f');
+        // Iterate through all links
         for (var linkElement of linkElements) {
           // Adds a container with text score loading as the first child in each of the containers.
           let gContainer = linkElement.parentNode.parentNode.parentNode.parentNode;
@@ -60,9 +50,9 @@ async function getA11yScores() {
             }
           }
         }
-      }
-    });
 
+      });
+  }
 }
 
 
