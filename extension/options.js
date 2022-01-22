@@ -1,7 +1,3 @@
-// In-page cache of the user's options
-const options = { blind: false, deaf: false, colorBlind: false };
-chrome.storage.sync.set(options);
-
 // Saves options to chrome.storage
 function save_options(event) {
   event.preventDefault();
@@ -9,12 +5,16 @@ function save_options(event) {
   var deaf = document.getElementById("deaf").checked;
   var colorBlind = document.getElementById("colorblind").checked;
   const options = { blind: blind, deaf: deaf, colorBlind: colorBlind };
-  chrome.storage.sync.set(options);
+  chrome.storage.sync.set(options, function () {
+    console.log(
+      "Value is set to " + options.blind + options.deaf + options.colorBlind
+    );
+  });
 }
 
 function restore_options() {
   // Use default value blind = false, deaf = false, colorBlind = false
-  console.log("helllllllllllllllllllllllp");
+  console.log("restore options");
   chrome.storage.sync.get(
     {
       blind: false,
@@ -22,6 +22,7 @@ function restore_options() {
       colorBlind: false,
     },
     function (items) {
+      console.log("Values are " + items.blind + items.deaf + items.colorBlind);
       document.getElementById("blind").checked = items.blind;
       document.getElementById("deaf").checked = items.deaf;
       document.getElementById("colorblind").checked = items.colorBlind;
@@ -31,18 +32,3 @@ function restore_options() {
 
 document.addEventListener("DOMContentLoaded", restore_options);
 document.getElementById("save").addEventListener("click", save_options);
-
-/* function handleCheckboxCeck(event) {
-  // Remove styling from the previously selected color
-  let current = event.target.parentElement.querySelector(
-    `.${selectedClassName}`
-  );
-  if (current && current !== event.target) {
-    current.classList.remove(selectedClassName);
-  }
-
-  // Mark the button as selected
-  let blind = event.target.dataset.blind;
-  event.target.classList.add(selectedClassName);
-  chrome.storage.sync.set({ blind });
-} */
