@@ -9,8 +9,21 @@ async function getA11yScores() {
     if (!linkElement.hasAttribute('role') && gContainer.classList.contains('g') && linkElement.hasAttribute('data-ved') && !linkElement.getAttribute('href').startsWith('/search') && !gContainer.firstChild.innerHTML.startsWith('Score:')) {
 
       let score = document.createElement("span");
-      score.innerHTML = 'Score: Loading';
       gContainer.insertBefore(score, gContainer.firstChild);
+      // Pass each of the URLs to be scanned by the API
+      // NOTE: We encode the URI component so the special characters do not break the link.
+      fetch(`http://35.162.58.20:8080/?url=${encodeURIComponent(linkElement.href)}`).then((results) => {
+        return results.json();
+      }).then(json => {
+        if (json.issues) {
+          // Temporary hack for displaying the results from the API
+          score.innerHTML = `Score: ${json.issues} errors`;
+        } else {
+          // This should never happen but we should be prepared to handle this.
+          score.innerHTML = `Pa11y could not process this link - Error was ${json.error}`;
+        }
+      });
+      score.innerHTML = 'Score: Loading';
 
     }
   }
