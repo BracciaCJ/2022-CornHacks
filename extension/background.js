@@ -15,7 +15,7 @@ async function getA11yScores() {
         // NOTE: We encode the URI component so the special characters do not break the link.
           score.innerHTML = 'Score: Loading';
           try{
-          fetch(`http://35.162.58.20:8080/?url=${encodeURIComponent(linkElement.href)}`).then((results) => {
+          fetch(`http://localhost:8080?url=${encodeURIComponent(linkElement.href)}`).then((results) => {
             return results.json();
           }).then(json => {
             if (json.issues) {
