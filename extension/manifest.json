@@ -13,6 +13,6 @@
     "*://*.google.com/search?q=*"
   ],
   "background": {
-    "service_wo,rker": "background.js"
+    "service_worker": "background.js"
   }
 }
