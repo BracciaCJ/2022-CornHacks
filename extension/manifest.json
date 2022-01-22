@@ -1,9 +1,18 @@
 {
-  "name": "Hello, World!",
-  "version": "1.0",
+  "name": "A11ySearchScores",
+  "action": {},
   "manifest_version": 3,
+  "version": "0.1",
+  "description": "Displays the A11y score of sites when searching in google.",
+  "permissions": [
+    "webRequest",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions":[
+    "*://*.google.com/search?q=*"
+  ],
   "background": {
-    "service_worker": "background.js"
-  },
-  "action": {}
+    "service_wo,rker": "background.js"
+  }
 }
