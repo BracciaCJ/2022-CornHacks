@@ -28,4 +28,20 @@ chrome.runtime.onInstalled.addListener(async () => {
   // To view this log message, open chrome://extensions, find "Hello, World!", and click the
   // "service worker" link in th card to open DevTools.
   console.log(`Created tab ${tab.id}`);
+
+  /* chrome.storage.onChanged.addListener(function (changes, namespace) {
+    for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+      console.log(
+        `Storage key "${key}" in namespace "${namespace}" changed.`,
+        `Old value was "${oldValue}", new value is "${newValue}".`
+      );
+    }
+  });
+
+  // Watch for changes to the user's options & apply them
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === "sync") {
+      console.log("synced");
+    }
+  }); */
 });
