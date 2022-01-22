@@ -6,10 +6,13 @@ async function getA11yScores() {
   for (var linkElement of linkElements) {
     // Adds a container with text score loading as the first child in each of the containers.
     let gContainer = linkElement.parentNode.parentNode.parentNode.parentNode;
-    let score = document.createElement("span");
-    score.innerHTML = 'Score: Loading';
-    gContainer.insertBefore(score, gContainer.firstChild);
+    if (!linkElement.hasAttribute('role') && gContainer.classList.contains('g') && linkElement.hasAttribute('data-ved') && !linkElement.getAttribute('href').startsWith('/search') && !gContainer.firstChild.innerHTML.startsWith('Score:')) {
 
+      let score = document.createElement("span");
+      score.innerHTML = 'Score: Loading';
+      gContainer.insertBefore(score, gContainer.firstChild);
+
+    }
   }
 
 }
