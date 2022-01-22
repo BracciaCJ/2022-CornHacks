@@ -1,3 +1,15 @@
+function appendDisabilitiesToURL(url) {
+  chrome.storage.sync.get(
+    {
+      blind: false,
+      deaf: false,
+      colorBlind: false,
+    },
+    function (items) {
+      url = items.blind.toString() + items.deaf.toString() + items.colorBlind.toString()
+    });
+  return url;
+}
 
 async function getA11yScores() {
   // Find all Google Search Results containers
