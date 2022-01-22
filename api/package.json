@@ -1,0 +1,11 @@
+{
+  "name": "pa11y-api",
+  "version": "1.0.0",
+  "description": "The API to interact with Pa11y",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
