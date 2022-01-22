@@ -23,11 +23,11 @@ async function getA11yScores() {
               score.innerHTML = `Score: ${json.issues} errors`;
             } else {
               // This should never happen but we should be prepared to handle this.
-              score.innerHTML = `Pa11y could not process this link - Error was ${json.error}`;
+              score.innerHTML = `Ha11y could not process this link - Error was ${json.error}`;
             }
           }).catch((error) => {
             console.log(error);
-            score.innerHTML = `The server is not reachable due to ${error.toString()}`;
+            score.innerHTML = `The Ha11y server is not reachable due to ${error.toString()}`;
           });
         }catch(err){
           console.log(err);
