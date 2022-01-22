@@ -4,19 +4,29 @@ body {
 
 .header {
   background-color: #01415a;
-}
-
-.float-container {
-  background-color: #01415a;
-  border: 3px solid #fff;
+  width: 100%;
   padding: 20px;
+  height: 100px;
 }
 
-.float-child {
-  width: 50%;
+.logo {
+  width: 100px;
+  height: 100px;
   float: left;
-  padding: 20px;
-  border: 2px solid red;
+}
+
+.title {
+  margin-left: 120px;
+  margin-top: 15px;
+  color: white;
+  font-size: 36pt;
+}
+
+.content {
+  margin: 20px;
+}
+
+.description {
 }
 
 .switch {
