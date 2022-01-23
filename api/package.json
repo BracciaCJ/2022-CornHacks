@@ -2,7 +2,7 @@
   "name": "pa11y-api",
   "version": "1.0.0",
   "description": "The API to interact with Pa11y",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest"
   },
