@@ -57,8 +57,10 @@ async function getA11yScores() {
                   console.log(error);
                   storedLinkElement.innerHTML = 'Ha11y Error ' + originalHTML + ` - Ha11y Server Error was ${error.toString()}`;
                 });
-            } else {
+            } else if (linkElement.hasAttribute("data-ved")){
+              console.log(linkElement.getElementsByTagName('h3')  )
               let linkText = linkElement.getElementsByTagName('h3')[0];
+              console.log(linkText);
               let originalHTML = linkText.innerHTML;
               linkText.innerHTML = "Ha11y Loading - " + originalHTML;
               // The following line should be considered make the app messier rather than more beneficial
