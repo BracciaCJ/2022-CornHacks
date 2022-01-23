@@ -37,6 +37,7 @@ async function getA11yScores() {
           let gContainerTwo =
             linkElement.parentNode.parentNode.parentNode.parentNode.parentNode
               .parentNode;
+          let container = linkElement.parentNode;
           // console.log(linkElement);
           if (
             !linkElement.hasAttribute("role") &&
@@ -45,7 +46,8 @@ async function getA11yScores() {
               linkElement.classList.contains("WlydOe") ||
               gContainer.classList.contains("g") ||
               gContainerTwo.classList.contains("g") ||
-              gContainerTwo.tagName.toLowerCase() == "li") &&
+              gContainerTwo.tagName.toLowerCase() == "li" ||
+              container.classList.contains("HiHjCd")) &&
             !linkElement.getAttribute("href").startsWith("/search")
           ) {
             // Pass each of the URLs to be scanned by the API
@@ -86,7 +88,8 @@ async function getA11yScores() {
                 });
             } else if (
               linkElement.classList.contains("l") ||
-              linkElement.classList.contains("fl")
+              linkElement.classList.contains("fl") ||
+              container.classList.contains("HiHjCd")
             ) {
               let storedLinkElement = linkElement;
               let originalHTML = linkElement.innerHTML;
