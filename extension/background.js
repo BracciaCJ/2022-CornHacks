@@ -21,10 +21,9 @@ async function getA11yScores() {
         for (var linkElement of linkElements) {
           // Adds a container with text score loading as the first child in each of the containers.
           let gContainer = linkElement.parentNode.parentNode.parentNode.parentNode;
-          if (!linkElement.hasAttribute('role') && gContainer.classList.contains('g') && linkElement.hasAttribute('data-ved') && !linkElement.getAttribute('href').startsWith('/search') && !gContainer.firstChild.innerHTML.startsWith('Score:')) {
-            console.log(linkElement);
+          let gContainerTwo = linkElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+          if (!linkElement.hasAttribute('role') && (gContainer.classList.contains('g') || gContainerTwo.classList.contains('g') || gContainerTwo.tagName.toLowerCase()=='li') && linkElement.hasAttribute('data-ved') && !linkElement.getAttribute('href').startsWith('/search')) {
             let linkText= linkElement.getElementsByTagName('h3')[0];
-            console.log(linkText);
             let originalHTML = linkText.innerHTML;
             linkText.innerHTML = "Ha11y Loading - "+originalHTML;
             // The following line should be considered make the app messier rather than more beneficial
