@@ -5,10 +5,16 @@ function save_options(event) {
   var blind = document.getElementById("blind").checked;
   var deaf = document.getElementById("deaf").checked;
   var colorBlind = document.getElementById("colorblind").checked;
-  const options = { blind: blind, deaf: deaf, colorBlind: colorBlind };
+  var add = document.getElementById("add").checked;
+  var lv = document.getElementById("lv").checked;
+  var motor = document.getElementById("motor").checked;
+  var cognitive = document.getElementById("cognitive").checked;
+  var sk = document.getElementById("sk").checked
+;
+  const options = { blind: blind, deaf: deaf, colorBlind: colorBlind, add: add, lv: lv, motor: motor, cognitive: cognitive, sk: sk, };
   chrome.storage.sync.set(options, function () {
     console.log(
-      "Value is set to " + options.blind + options.deaf + options.colorBlind
+      "Value is set to " + options.blind + options.deaf + options.colorBlind + options.add + options.lv + options.motor + options.cognitive +options.sk
     );
   });
 }
@@ -26,12 +32,23 @@ function restore_options() {
       blind: false,
       deaf: false,
       colorBlind: false,
+      add: false,
+      lv: false,
+      motor: false,
+      cognitive: false,
+      sk: false,
+
     },
     function (items) {
       console.log("Values are " + items.blind + items.deaf + items.colorBlind);
       document.getElementById("blind").checked = items.blind;
       document.getElementById("deaf").checked = items.deaf;
       document.getElementById("colorblind").checked = items.colorBlind;
+      document.getElementById("add").checked = items.add;
+      document.getElementById("lv").checked = items.lv;
+      document.getElementById("motor").checked = items.motor;
+      document.getElementById("cognitive").checked = items.cognitive;
+      document.getElementById("sk").checked = items.sk;
     }
   );
 }
