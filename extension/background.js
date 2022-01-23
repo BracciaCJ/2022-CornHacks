@@ -49,7 +49,7 @@ async function getA11yScores() {
                 fetch(apiUrl).then((results) => {
                   return results.json();
                 }).then(json => {
-                  if (json.issues) {
+                  if (json.totalScore) {
                     // Temporary hack for displaying the results from the API
                     storedLinkElement.innerHTML = `Ha11y Score ${json.totalScore} - ` + originalHTML;
                   } else {
@@ -61,9 +61,7 @@ async function getA11yScores() {
                   storedLinkElement.innerHTML = 'Ha11y Error ' + originalHTML + ` - Ha11y Server Error was ${error.toString()}`;
                 });
             } else if (linkElement.hasAttribute("data-ved")){
-              console.log(linkElement.getElementsByTagName('h3')  )
               let linkText = linkElement.getElementsByTagName('h3')[0];
-              console.log(linkText);
               let originalHTML = linkText.innerHTML;
               linkText.innerHTML = "Ha11y Loading - " + originalHTML;
               // The following line should be considered make the app messier rather than more beneficial
@@ -73,7 +71,7 @@ async function getA11yScores() {
                 fetch(apiUrl).then((results) => {
                   return results.json();
                 }).then(json => {
-                  if (json.issues) {
+                  if (json.totalScore) {
                     // Temporary hack for displaying the results from the API
                     linkText.innerHTML = `Ha11y Score ${json.totalScore} - ` + originalHTML;
                   } else {
