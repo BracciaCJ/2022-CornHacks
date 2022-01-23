@@ -1,42 +1,25 @@
 body {
   margin: 0px;
 }
-
-.header {
+main{
+  margin: 20px;
+}
+header {
   background-color: #01415a;
   padding: 20px;
   height: 100px;
+  display: flex;
+  justify-content: left;
+  height: fit-content;
+  align-items: center;
 }
-
+h1{
+  color: white;
+  text-align: center;
+  height: fit-content;
+  padding-left: 20px;
+}
 .logo {
   width: 100px;
   height: 100px;
-  float: left;
-}
-
-.title {
-  margin-left: 120px;
-  margin-top: 15px;
-  color: white;
-  font-size: 36pt;
-}
-
-.content {
-  margin-top: 30px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.sub-title {
-  font-size: 24pt;
-}
-
-.description {
-  margin-top: 10px;
-  font-size: 14pt;
-}
-
-.changes-saving-note {
-  margin-top: 30px;
-  font-size: 14pt;
 }
