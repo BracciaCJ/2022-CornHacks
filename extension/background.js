@@ -32,13 +32,15 @@ async function getA11yScores() {
         for (var linkElement of linkElements) {
           // Adds a container with text score loading as the first child in each of the containers.
           let gContainer = linkElement.parentNode.parentNode.parentNode.parentNode;
-          if (!linkElement.hasAttribute('role') && gContainer.classList.contains('g') && linkElement.hasAttribute('data-ved') && !linkElement.getAttribute('href').startsWith('/search') && !gContainer.firstChild.innerHTML.startsWith('Score:')) {
-
-            let score = document.createElement("span");
-            gContainer.insertBefore(score, gContainer.firstChild);
+          let gContainerTwo = linkElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+          if (!linkElement.hasAttribute('role') && (gContainer.classList.contains('g') || gContainerTwo.classList.contains('g') || gContainerTwo.tagName.toLowerCase()=='li') && linkElement.hasAttribute('data-ved') && !linkElement.getAttribute('href').startsWith('/search')) {
+            let linkText= linkElement.getElementsByTagName('h3')[0];
+            let originalHTML = linkText.innerHTML;
+            linkText.innerHTML = "Ha11y Loading - "+originalHTML;
+            // The following line should be considered make the app messier rather than more beneficial
+            //linkText.setAttribute("aria-live","polite");
             // Pass each of the URLs to be scanned by the API
             // NOTE: We encode the URI component so the special characters do not break the link.
-            score.innerHTML = 'Score: Loading';
             let apiUrl = `http://localhost:8080?url=${encodeURIComponent(linkElement.href)}&disabilities=${ending}`
             
             try {
@@ -47,14 +49,14 @@ async function getA11yScores() {
               }).then(json => {
                 if (json.totalScore) {
                   // Temporary hack for displaying the results from the API
-                  score.innerHTML = `Score: ${json.totalScore} errors`;
+                  linkText.innerHTML = `Ha11y Score ${json.totalScore} - `+originalHTML;
                 } else {
                   // This should never happen but we should be prepared to handle this.
-                  score.innerHTML = `Ha11y could not process this link - Error was ${json.error}`;
+                  linkText.innerHTML = `Ha11y Error `+originalHTML+` - Ha11y error was ${json.errors}`;
                 }
               }).catch((error) => {
                 console.log(error);
-                score.innerHTML = `The Ha11y server is not reachable due to ${error.toString()}`;
+                linkText.innerHTML = 'Ha11y Error ' + originalHTML + ` - Ha11y Server Error was ${error.toString()}`;
               });
             } catch (err) {
               console.log(err);
@@ -66,20 +68,20 @@ async function getA11yScores() {
   }
 }
 
-
-chrome.webRequest.onCompleted.addListener(function (details) {
-  // Run the get A11y Scores function after google searching.
-  chrome.scripting.executeScript({
-    target: { tabId: details.tabId },
-    function: getA11yScores
-  });
-},
-  { urls: ['*:\/\/*.google.com/search?q=*'] }
+chrome.webRequest.onCompleted.addListener(
+  function (details) {
+    // Run the get A11y Scores function after google searching.
+    chrome.scripting.executeScript({
+      target: { tabId: details.tabId },
+      function: getA11yScores,
+    });
+  },
+  { urls: ["*://*.google.com/search?q=*"] }
 );
 chrome.runtime.onInstalled.addListener(async () => {
-  // Load in the HTML
-  let url = chrome.runtime.getURL("hello.html");
-  // Create a tab to display the HTML Form
+  // Create a tab and display our current index.html file
+  let url = chrome.runtime.getURL("index.html");
+
   let tab = await chrome.tabs.create({ url });
   console.log(`Created tab ${tab.id}`);
 });

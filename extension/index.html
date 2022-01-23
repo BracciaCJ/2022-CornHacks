@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ha11y</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="options.js"></script>
+  </head>
+  <body>
+    <section class="header">
+      <div class="logo">
+        <img
+          src="../icon.png"
+          alt="Ha11y Logo"
+          width="100px"
+          height="100px"
+        />
+      </div>
+      <div class="title">Ha11y</div>
+    </section>
+
+    <section class="content">
+      <div class="sub-title">What is Ha11y?</div>
+      <div class="description">
+        Ha11y allows users to discover whether or not a website will be
+        accessible to them before even opening the website. For users with
+        disabilities, Ha11y Google Chrome Extension scores and displays the
+        accessibility score of websites directly in a google search. When users
+        first signup, they can select their disability and see
+        personally-tailored results; otherwise, there is also a default score
+        for general accessibility.
+      </div>
+
+      <div class="sub-title">What applies to you?</div>
+
+      <div class="description">
+        <form>
+          <label for="blind">
+            <input type="checkbox" id="blind" name="blind"  />
+            Blind </label
+          ><br />
+
+          <label for="deaf">
+            <input type="checkbox" id="deaf" name="deaf"  />
+            Deaf </label
+          ><br />
+
+          <label for="colorblind">
+            <input
+              type="checkbox"
+              id="colorblind"
+              name="colorblind"
+            />
+            Color Blind </label
+          ><br />
+
+          <input id="disability-submit" class="submit-button" type="submit" value="Submit" />
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

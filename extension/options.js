@@ -1,5 +1,6 @@
 // Saves options to chrome.storage
 function save_options(event) {
+  console.log("save options");
   event.preventDefault();
   var blind = document.getElementById("blind").checked;
   var deaf = document.getElementById("deaf").checked;
@@ -12,6 +13,11 @@ function save_options(event) {
   });
 }
 
+function on_load(){
+  restore_options();
+  document.getElementById("disability-submit").addEventListener("click", save_options);
+
+}
 function restore_options() {
   // Use default value blind = false, deaf = false, colorBlind = false
   console.log("restore options");
@@ -30,5 +36,4 @@ function restore_options() {
   );
 }
 
-document.addEventListener("DOMContentLoaded", restore_options);
-document.getElementById("save").addEventListener("click", save_options);
+document.addEventListener("DOMContentLoaded", on_load);
