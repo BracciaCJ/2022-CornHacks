@@ -91,6 +91,7 @@ async function getA11yScores() {
 chrome.webRequest.onCompleted.addListener(
   function (details) {
     // Run the get A11y Scores function after google searching.
+    console.log(details);
     chrome.scripting.executeScript({
       target: { tabId: details.tabId },
       function: getA11yScores,
