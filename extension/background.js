@@ -55,20 +55,20 @@ async function getA11yScores() {
   }
 }
 
-
-chrome.webRequest.onCompleted.addListener(function (details) {
-  // Run the get A11y Scores function after google searching.
-  chrome.scripting.executeScript({
-    target: { tabId: details.tabId },
-    function: getA11yScores
-  });
-},
-  { urls: ['*:\/\/*.google.com/search?q=*'] }
+chrome.webRequest.onCompleted.addListener(
+  function (details) {
+    // Run the get A11y Scores function after google searching.
+    chrome.scripting.executeScript({
+      target: { tabId: details.tabId },
+      function: getA11yScores,
+    });
+  },
+  { urls: ["*://*.google.com/search?q=*"] }
 );
 chrome.runtime.onInstalled.addListener(async () => {
-  // Load in the HTML
-  let url = chrome.runtime.getURL("hello.html");
-  // Create a tab to display the HTML Form
+  // Create a tab and display our current index.html file
+  let url = chrome.runtime.getURL("index.html");
+
   let tab = await chrome.tabs.create({ url });
   console.log(`Created tab ${tab.id}`);
 });
