@@ -1,7 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const url = require('url');
-const querystring = require('querystring');
 const pa11y = require('pa11y'); 
 const csv = require('csv-parser');
 const fs = require('fs');
@@ -15,6 +13,53 @@ app.use(bodyParser.json());
 app.get('/', async function(req, res) {
     // Access the provided 'url' query parameters
     let url = req.query.url;
+    let disabilities = req.query.disabilities;
+
+    let blindIndex = disabilities.search("b");
+    let deafIndex = disabilities.search("d");
+    let colorBlindIndex = disabilities.search("c");
+    let motorIndex = disabilities.search("m");
+    let cognitiveIndex = disabilities.search("g");
+    let attentionDeficitIndex = disabilities.search("a");
+    let sightedKeyboardUsersIndex = disabilities.search("s");
+    let lowVisionIndex = disabilities.search("l");
+        
+    let isBlind = false;
+    let isDeaf = false;
+    let isColorBlind = false;
+    let isMotor = false;
+    let isCognitive = false;
+    let isAttentionDeficit = false;
+    let isSightedKeyboardUsers = false;
+    let isLowVision = false;
+
+
+    if (disabilities.charAt(blindIndex+1) == 't'){
+        isBlind = true;
+    }
+    if (disabilities.charAt(deafIndex+1) == 't'){
+        isDeaf = true;
+    }
+    if (disabilities.charAt(colorBlindIndex+1) == 't'){
+        isColorBlind = true;
+    }
+    if (disabilities.charAt(motorIndex+1) == 't'){
+        isMotor = true;
+    }
+    if (disabilities.charAt(cognitiveIndex+1) == 't'){
+        isCognitive = true;
+    }
+    if (disabilities.charAt(attentionDeficitIndex+1) == 't'){
+        isAttentionDeficit = true;
+    }
+    if (disabilities.charAt(sightedKeyboardUsersIndex+1) == 't'){
+        isSightedKeyboardUsers = true;
+    }
+    if (disabilities.charAt(lowVisionIndex+1) == 't'){
+        isLowVision = true;
+    }
+
+    
     if (url){
         pa11y(url, {runners:['axe']}).then(async (results) => {
             // Display Violations and total Score
@@ -34,18 +79,51 @@ app.get('/', async function(req, res) {
             .on('data', (row) => {
                 if (axeCodes.has(row['Rule ID'])){
                     jsonObj['violations'].push(row['Rule ID']);
-                    if (row['blind']){
-                        jsonObj['totalScore'] += parseInt(row['blind']);
+
+                    let maxDeduction = 0;
+
+                    if (row['blind'] && isBlind){
+                        if (row['blind'] <= maxDeduction){
+                            maxDeduction = row['blind']
+                        }
                     }
-                    if (row['colorblind']){
-                        jsonObj['totalScore'] += parseInt(row['colorblind'])
+                    if (row['colorblind'] && isColorBlind){
+                        if (row['colorblind'] <= maxDeduction){
+                            maxDeduction = row['colorblind']
+                        }
                     }
-                    if (row['deaf']){
-                        jsonObj['totalScore'] += parseInt(row['deaf']);
+                    if (row['deaf'] && isDeaf){
+                        if (row['deaf'] <= maxDeduction){
+                            maxDeduction = row['deaf']
+                        }
                     }
-                    if (row['deafblind']){ 
-                        jsonObj['totalScore'] += parseInt(row['deafblind']);
+                    if (row['motor'] && isMotor){
+                        if (row['motor'] <= maxDeduction){
+                            maxDeduction = row['motor']
+                        }
                     }
+                    if (row['cognitive'] && isCognitive){
+                        if (row['cognitive'] <= maxDeduction){
+                            maxDeduction = row['cognitive']
+                        }
+                    }
+                    if (row['attention deficit'] && isAttentionDeficit){
+                        if (row['attention deficit'] <= maxDeduction){
+                            maxDeduction = row['attention deficit']
+                        }
+                    }
+                    if (row['sighted keyboard users'] && isSightedKeyboardUsers){
+                        if (row['sighted keyboard users'] <= maxDeduction){
+                            maxDeduction = row['sighted keyboard users']
+                        }
+                    }
+                    if (row['low vision'] && isLowVision){
+                        if (row['low vision'] <= maxDeduction){
+                            maxDeduction = row['low vision']
+                        }
+                    }
+
+                    jsonObj['totalScore'] += parseInt(maxDeduction);
                 }
             })
             .on('end', () => {

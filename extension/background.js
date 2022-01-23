@@ -28,6 +28,7 @@ async function getA11yScores() {
         //doing g for cognitive because c is taken
         ending = ending + 'g' + (items.cognitive ? 't' : 'f');
         ending = ending + 's' + (items.sk ? 't' : 'f');
+        
         // Iterate through all links
         for (var linkElement of linkElements) {
           // Adds a container with text score loading as the first child in each of the containers.
@@ -38,6 +39,8 @@ async function getA11yScores() {
             // Pass each of the URLs to be scanned by the API
             // NOTE: We encode the URI component so the special characters do not break the link.
             let apiUrl = `http://localhost:8080?url=${encodeURIComponent(linkElement.href)}&disabilities=${ending}`
+            
+
             if (linkElement.classList.contains('l')||linkElement.classList.contains('fl')) {
               let storedLinkElement = linkElement;
               let originalHTML = linkElement.innerHTML;
@@ -46,9 +49,9 @@ async function getA11yScores() {
                 fetch(apiUrl).then((results) => {
                   return results.json();
                 }).then(json => {
-                  if (json.issues) {
+                  if (json.totalScore) {
                     // Temporary hack for displaying the results from the API
-                    storedLinkElement.innerHTML = `Ha11y Score ${json.score} - ` + originalHTML;
+                    storedLinkElement.innerHTML = `Ha11y Score ${json.totalScore} - ` + originalHTML;
                   } else {
                     // This should never happen but we should be prepared to handle this.
                     storedLinkElement.innerHTML = `Ha11y Error ` + originalHTML + ` - Ha11y error was ${json.errors}`;
@@ -58,9 +61,7 @@ async function getA11yScores() {
                   storedLinkElement.innerHTML = 'Ha11y Error ' + originalHTML + ` - Ha11y Server Error was ${error.toString()}`;
                 });
             } else if (linkElement.hasAttribute("data-ved")){
-              console.log(linkElement.getElementsByTagName('h3')  )
               let linkText = linkElement.getElementsByTagName('h3')[0];
-              console.log(linkText);
               let originalHTML = linkText.innerHTML;
               linkText.innerHTML = "Ha11y Loading - " + originalHTML;
               // The following line should be considered make the app messier rather than more beneficial
@@ -70,9 +71,9 @@ async function getA11yScores() {
                 fetch(apiUrl).then((results) => {
                   return results.json();
                 }).then(json => {
-                  if (json.issues) {
+                  if (json.totalScore) {
                     // Temporary hack for displaying the results from the API
-                    linkText.innerHTML = `Ha11y Score ${json.score} - ` + originalHTML;
+                    linkText.innerHTML = `Ha11y Score ${json.totalScore} - ` + originalHTML;
                   } else {
                     // This should never happen but we should be prepared to handle this.
                     linkText.innerHTML = `Ha11y Error ` + originalHTML + ` - Ha11y error was ${json.errors}`;
