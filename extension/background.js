@@ -55,105 +55,51 @@ async function getA11yScores() {
             let apiUrl = `http://localhost:8080?url=${encodeURIComponent(
               linkElement.href
             )}&disabilities=${ending}`;
+            let linkTextElement = undefined;
             if (linkElement.classList.contains("WlydOe")) {
-              let linkText = linkElement.getElementsByClassName("mCBkyc")[0];
-              let originalHTML = linkText.innerHTML;
-              linkText.innerHTML = "Ha11y Loading - " + originalHTML;
-              // The following line should be considered make the app messier rather than more beneficial
-              //linkText.setAttribute("aria-live","polite");
-
-              fetch(apiUrl)
-                .then((results) => {
-                  return results.json();
-                })
-                .then((json) => {
-                  if (json.totalScore) {
-                    // Temporary hack for displaying the results from the API
-                    linkText.innerHTML =
-                      `Ha11y Score ${json.totalScore} - ` + originalHTML;
-                  } else {
-                    // This should never happen but we should be prepared to handle this.
-                    linkText.innerHTML =
-                      `Ha11y Error ` +
-                      originalHTML +
-                      ` - Ha11y error was ${json.errors}`;
-                  }
-                })
-                .catch((error) => {
-                  //console.log(error);
-                  linkText.innerHTML =
-                    "Ha11y Error " +
-                    originalHTML +
-                    ` - Ha11y Server Error was ${error.toString()}`;
-                });
+              linkTextElement = linkElement.getElementsByClassName("mCBkyc")[0];
             } else if (
               linkElement.classList.contains("l") ||
               linkElement.classList.contains("fl") ||
               container.classList.contains("HiHjCd")
             ) {
-              let storedLinkElement = linkElement;
-              let originalHTML = linkElement.innerHTML;
-
-              storedLinkElement.innerHTML = "Ha11y Loading - " + originalHTML;
-              fetch(apiUrl)
-                .then((results) => {
-                  return results.json();
-                })
-                .then((json) => {
-                  if (json.totalScore) {
-                    // Temporary hack for displaying the results from the API
-                    storedLinkElement.innerHTML =
-                      `Ha11y Score ${json.totalScore} - ` + originalHTML;
-                  } else {
-                    // This should never happen but we should be prepared to handle this.
-                    storedLinkElement.innerHTML =
-                      `Ha11y Error ` +
-                      originalHTML +
-                      ` - Ha11y error was ${json.errors}`;
-                  }
-                })
-                .catch((error) => {
-                  //console.log(error);
-                  storedLinkElement.innerHTML =
-                    "Ha11y Error " +
-                    originalHTML +
-                    ` - Ha11y Server Error was ${error.toString()}`;
-                });
+              linkTextElement = linkElement;
             } else if (linkElement.hasAttribute("data-ved")) {
-              let linkText = linkElement.getElementsByTagName("h3")[0];
-              let originalHTML = linkText.innerHTML;
-              linkText.innerHTML = "Ha11y Loading - " + originalHTML;
-              // The following line should be considered make the app messier rather than more beneficial
-              //linkText.setAttribute("aria-live","polite");
-
-              fetch(apiUrl)
-                .then((results) => {
-                  return results.json();
-                })
-                .then((json) => {
-                  if (json.totalScore) {
-                    // Temporary hack for displaying the results from the API
-                    linkText.innerHTML =
-                      `Ha11y Score ${json.totalScore} - ` + originalHTML;
-                  } else {
-                    // This should never happen but we should be prepared to handle this.
-                    linkText.innerHTML =
-                      `Ha11y Error ` +
-                      originalHTML +
-                      ` - Ha11y error was ${json.errors}`;
-                  }
-                })
-                .catch((error) => {
-                  //console.log(error);
-                  linkText.innerHTML =
-                    "Ha11y Error " +
-                    originalHTML +
-                    ` - Ha11y Server Error was ${error.toString()}`;
-                });
+              linkTextElement = linkElement.getElementsByTagName("h3")[0];
             }
+            let originalHTML = linkTextElement.innerHTML;
+            linkTextElement.innerHTML = "Ha11y Loading - " + originalHTML;
+            // The following line should be considered make the app messier rather than more beneficial
+            //linkText.setAttribute("aria-live","polite");
+
+            fetch(apiUrl)
+              .then((results) => {
+                return results.json();
+              })
+              .then((json) => {
+                if (json.totalScore) {
+                  // Temporary hack for displaying the results from the API
+                  linkTextElement.innerHTML =
+                    `Ha11y Score ${json.totalScore} - ` + originalHTML;
+                } else {
+                  // This should never happen but we should be prepared to handle this.
+                  linkTextElement.innerHTML =
+                    `Ha11y Error - ` +
+                    originalHTML +
+                    ` - Ha11y error was ${json.errors}`;
+                }
+              })
+              .catch((error) => {
+                //console.log(error);
+                linkTextElement.innerHTML =
+                  "Ha11y Error - " +
+                  originalHTML +
+                  ` - Ha11y Server Error was ${error.toString()}`;
+              });
           }
         }
       }
+
     );
   }
 }
