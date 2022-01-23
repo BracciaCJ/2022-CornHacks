@@ -6,16 +6,16 @@ function save_options(event) {
   var deaf = document.getElementById("deaf").checked;
   var colorBlind = document.getElementById("colorblind").checked;
   var add = document.getElementById("add").checked;
-  var lv = document.getElementById("lv").checked;
+  var lv = document.getElementById("lowvision").checked;
   var motor = document.getElementById("motor").checked;
   var cognitive = document.getElementById("cognitive").checked;
-  var sk = document.getElementById("sk").checked
+  var sk = document.getElementById("sightedkeyboarduser").checked
 ;
   const options = { blind: blind, deaf: deaf, colorBlind: colorBlind, add: add, lv: lv, motor: motor, cognitive: cognitive, sk: sk, };
   chrome.storage.sync.set(options, function () {
     console.log(
-      "Value is set to " + options.blind + options.deaf + options.colorBlind + options.add + options.lv + options.motor + options.cognitive +options.sk
-    );
+      "Updated the values of the Chrome Storage Options"
+      );
   });
 }
 
@@ -50,10 +50,10 @@ function restore_options() {
       document.getElementById("deaf").checked = items.deaf;
       document.getElementById("colorblind").checked = items.colorBlind;
       document.getElementById("add").checked = items.add;
-      document.getElementById("lv").checked = items.lv;
+      document.getElementById("lowvision").checked = items.lv;
       document.getElementById("motor").checked = items.motor;
       document.getElementById("cognitive").checked = items.cognitive;
-      document.getElementById("sk").checked = items.sk;
+      document.getElementById("sightedkeyboarduser").checked = items.sk;
     }
   );
 }
