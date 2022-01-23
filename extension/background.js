@@ -32,10 +32,8 @@ async function getA11yScores() {
             
             try {
               fetch(apiUrl).then((results) => {
-                console.log(results)
                 return results.json();
               }).then(json => {
-                console.log(json)
                 if (json.totalScore) {
                   // Temporary hack for displaying the results from the API
                   score.innerHTML = `Score: ${json.totalScore} errors`;

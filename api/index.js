@@ -15,8 +15,6 @@ app.get('/', async function(req, res) {
     let url = req.query.url;
     let disabilities = req.query.disabilities;
 
-    // console.log(url);
-
     let blindIndex = disabilities.search("b");
     let deafIndex = disabilities.search("d");
     let colorBlindIndex = disabilities.search("c");
