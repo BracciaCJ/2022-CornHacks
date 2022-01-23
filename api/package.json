@@ -10,7 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.1",
+    "csv": "^6.0.5",
     "csv-parser": "^3.0.0",
+    "csv-reader": "^1.0.8",
+    "d3": "^7.3.0",
+    "d3-fetch": "^3.0.1",
     "express": "^4.17.2",
     "jest": "^27.4.7",
     "pa11y": "^6.1.1",
