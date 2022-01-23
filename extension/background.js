@@ -29,14 +29,16 @@ async function getA11yScores() {
             // NOTE: We encode the URI component so the special characters do not break the link.
             score.innerHTML = 'Score: Loading';
             let apiUrl = `http://localhost:8080?url=${encodeURIComponent(linkElement.href)}&disabilities=${ending}`
-
+            
             try {
               fetch(apiUrl).then((results) => {
+                console.log(results)
                 return results.json();
               }).then(json => {
-                if (json.issues) {
+                console.log(json)
+                if (json.totalScore) {
                   // Temporary hack for displaying the results from the API
-                  score.innerHTML = `Score: ${json.issues} errors`;
+                  score.innerHTML = `Score: ${json.totalScore} errors`;
                 } else {
                   // This should never happen but we should be prepared to handle this.
                   score.innerHTML = `Ha11y could not process this link - Error was ${json.error}`;
