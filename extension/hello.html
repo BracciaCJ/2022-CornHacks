@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Name of Application</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="options.js"></script>
+  </head>
+  <body>
+    <h1>Name of Application</h1>
+    <p>
+      [NAME] allows users to discover wheter or not a website will be accessible
+      to them before even opening the website. [Name] Google Chrome Extension
+      scores and displays the accessibility score of websites directly in a
+      google search for users with disabilities. Users can select their
+      disability when first signing up and the results will be tailor to them,
+      otherwise their is also a default score for general accesibility.
+    </p>
+    <br />
+
+    <h2>What applies to you?</h2>
+    <form id="optionsForm">
+      <input type="checkbox" id="blind" name="blind" value="Blind" />
+      <label for="blind">Blind</label><br />
+
+      <input type="checkbox" id="deaf" name="deaf" value="Deaf" />
+      <label for="deaf">Deaf</label><br />
+
+      <input
+        type="checkbox"
+        id="colorblind"
+        name="colorblind"
+        value="Colorblind"
+      />
+      <label for="blind">Color Blind</label><br /><br />
+
+      <h2>Enabled</h2>
+
+      <label class="switch">
+        <input type="checkbox" />
+        <span class="slider round"></span> </label
+      ><br /><br /><br />
+
+      <button id="save">Save</button>
+    </form>
+  </body>
+</html>
