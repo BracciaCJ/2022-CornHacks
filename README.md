@@ -31,3 +31,6 @@ Ha11y is a **Google Chrome Extension** that can determine how **accessible** a w
 - HTML, CSS, and [JavaScript](https://www.javascript.com/) with [Bootstrap](https://getbootstrap.com/)
 - [Pa11y](https://pa11y.org/) analyizer with Deque's [Axe Core](https://www.deque.com/axe/)
 - Built onto Google's [Chrome Extension](https://chrome.google.com/webstore/category/extensions)
+### Google Chrome's Extension Store Listing
+After many hours of hard work, we are proud to announce that Ha11y is submitted onto Google Chrome's Extension Store! 
+![Google Chrome's Extension Store Submission](/Ha11y/media/Confirmation.png)
