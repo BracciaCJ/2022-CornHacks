@@ -1,4 +1,5 @@
 # CornHacks 2022 - Ha11y
+<img src="/Ha11y/media/icon.png" alt="Ha11y" width="350"/>
 
 ## Created by Colton Braccia, Tommy Braccia, Emma Hubka, Danny Tran
 
@@ -16,3 +17,17 @@ Ha11y is a **Google Chrome Extension** that can determine how **accessible** a w
 - We had all disabilites that Deque(a leading accessibility company) focuses on included.
 - We built a Node Express API and hosted it on AWS.
 ### What we learned 
+- How to properly utilize branches, pull requests, issue trackers within Github.
+- Explored Express integration with Docker.
+- Learned about the Deque's Axe Core disability guidelines and WCAG rules.
+- How to utilize AWS to host our own web services.
+- Built our first Google Chrome Extension.  
+### What's next for Ha11y?
+- Implement caching and store results onto globally shared database.
+- Incorperate additional customization options for users to have a more taliored experience.
+- Allow users to locally host the API or run it from a public server. 
+### Technologies Used
+- [Node Express](https://expressjs.com/) API on a [AWS](https://aws.amazon.com/)
+- HTML, CSS, and [JavaScript](https://www.javascript.com/) with [Bootstrap](https://getbootstrap.com/)
+- [Pa11y](https://pa11y.org/) analyizer with Deque's [Axe Core](https://www.deque.com/axe/)
+- Built onto Google's [Chrome Extension](https://chrome.google.com/webstore/category/extensions)
