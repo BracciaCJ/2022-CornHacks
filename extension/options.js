@@ -13,6 +13,11 @@ function save_options(event) {
   });
 }
 
+function on_load(){
+  restore_options();
+  document.getElementById("disability-submit").addEventListener("click", save_options);
+
+}
 function restore_options() {
   // Use default value blind = false, deaf = false, colorBlind = false
   console.log("restore options");
@@ -31,5 +36,4 @@ function restore_options() {
   );
 }
 
-document.addEventListener("DOMContentLoaded", restore_options);
-document.getElementById("save").addEventListener("click", save_options);
+document.addEventListener("DOMContentLoaded", on_load);
