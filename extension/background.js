@@ -11,12 +11,23 @@ async function getA11yScores() {
         blind: false,
         deaf: false,
         colorBlind: false,
+        motor: false,
+        cognitive: false,
+        attentionDeficit: false,
+        sightedKeyboardUsers: false,
+        lowVision: false
       },
       function (items) {
         // Update the ending based on the stored values
         ending = ending + 'b' + (items.blind ? 't' : 'f');
         ending = ending + 'd' + (items.deaf ? 't' : 'f');
         ending = ending + 'c' + (items.colorBlind ? 't' : 'f');
+        ending = ending + 'm' + (items.motor ? 't' : 'f');
+        ending = ending + 'g' + (items.cognitive ? 't' : 'f');
+        ending = ending + 'a' + (items.attentionDeficit ? 't' : 'f');
+        ending = ending + 's' + (items.sightedKeyboardUsers ? 't' : 'f');
+        ending = ending + 'l' + (items.lowVision ? 't' : 'f');
+
         // Iterate through all links
         for (var linkElement of linkElements) {
           // Adds a container with text score loading as the first child in each of the containers.
