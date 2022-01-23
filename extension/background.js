@@ -16,6 +16,7 @@ async function getA11yScores() {
         motor: false,
         cognitive: false,
         sk: false,
+        errorLoggingVerbosityVal: 0,
       },
       function (items) {
         // Update the ending based on the stored values
@@ -70,7 +71,7 @@ async function getA11yScores() {
             let originalHTML = linkTextElement.innerHTML;
             linkTextElement.innerHTML = "Ha11y Loading - " + originalHTML;
             // The following line should be considered make the app messier rather than more beneficial
-            //linkText.setAttribute("aria-live","polite");
+            //linkTextElement.setAttribute("aria-live","polite");
 
             fetch(apiUrl)
               .then((results) => {
@@ -83,18 +84,30 @@ async function getA11yScores() {
                     `Ha11y Score ${json.totalScore} - ` + originalHTML;
                 } else {
                   // This should never happen but we should be prepared to handle this.
-                  linkTextElement.innerHTML =
-                    `Ha11y Error - ` +
-                    originalHTML +
-                    ` - Ha11y error was ${json.errors}`;
+                  if (items.errorLoggingVerbosityVal == 0 || items.errorLoggingVerbosityVal == 1) {
+                    linkTextElement.innerHTML =
+                      `Ha11y Error - ` +
+                      originalHTML;
+                  } else {
+                    linkTextElement.innerHTML = `Ha11y Error - ` +
+                      originalHTML + ` - Ha11y error from the API was ${json.errors}`;
+                  }
                 }
               })
               .catch((error) => {
                 //console.log(error);
-                linkTextElement.innerHTML =
-                  "Ha11y Error - " +
-                  originalHTML +
-                  ` - Ha11y Server Error was ${error.toString()}`;
+                if (items.errorLoggingVerbosityVal == 0) {
+                  linkTextElement.innerHTML =
+                    "Ha11y Error - " +
+                    originalHTML;
+                } else if (items.errorLoggingVerbosityVal == 1) {
+                  linkTextElement.innerHTML =
+                    "Ha11y Web GET Request Error - " +
+                    originalHTML;
+                } else {
+                  linkTextElement.innerHTML =
+                    "Ha11y Web GET Request Error - " + originalHTML + ` - Ha11y Server Error was ${error.toString()}`;
+                }
               });
           }
         }
