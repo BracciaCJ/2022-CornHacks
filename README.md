@@ -1,5 +1,4 @@
 # CornHacks 2022 - Ha11y
-# CornHacks2022- Ha11y 
 
 ##### Created by Colton Braccia, Tommy Braccia, Emma Hubka, Danny Tran
 
