@@ -39,22 +39,23 @@ async function getA11yScores() {
             // NOTE: We encode the URI component so the special characters do not break the link.
             let apiUrl = `http://localhost:8080?url=${encodeURIComponent(linkElement.href)}&disabilities=${ending}`
             if (linkElement.classList.contains('l')) {
+              let storedLinkElement = linkElement;
               let originalHTML = linkElement.innerHTML;
 
-              linkElement.innerHTML = "Ha11y Loading - " + originalHTML;
+              storedLinkElement.innerHTML = "Ha11y Loading - " + originalHTML;
                 fetch(apiUrl).then((results) => {
                   return results.json();
                 }).then(json => {
                   if (json.issues) {
                     // Temporary hack for displaying the results from the API
-                    linkElement.innerHTML = `Ha11y Score ${json.score} - ` + originalHTML;
+                    storedLinkElement.innerHTML = `Ha11y Score ${json.score} - ` + originalHTML;
                   } else {
                     // This should never happen but we should be prepared to handle this.
-                    linkElement.innerHTML = `Ha11y Error ` + originalHTML + ` - Ha11y error was ${json.errors}`;
+                    storedLinkElement.innerHTML = `Ha11y Error ` + originalHTML + ` - Ha11y error was ${json.errors}`;
                   }
                 }).catch((error) => {
                   console.log(error);
-                  linkElement.innerHTML = 'Ha11y Error ' + originalHTML + ` - Ha11y Server Error was ${error.toString()}`;
+                  storedLinkElement.innerHTML = 'Ha11y Error ' + originalHTML + ` - Ha11y Server Error was ${error.toString()}`;
                 });
             } else {
               let linkText = linkElement.getElementsByTagName('h3')[0];
