@@ -1,5 +1,6 @@
 // Saves options to chrome.storage
 function save_options(event) {
+  console.log("save options");
   event.preventDefault();
   var blind = document.getElementById("blind").checked;
   var deaf = document.getElementById("deaf").checked;
