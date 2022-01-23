@@ -94,12 +94,16 @@ async function getA11yScores() {
 chrome.webRequest.onCompleted.addListener(
   function (details) {
     // Run the get A11y Scores function after google searching.
+    // Do not run on fromCache as it crashes due to lack of permissions
+    // This occurs when you click on a Google Result then go back a page
+    if(!details['fromCache']){
     chrome.scripting.executeScript({
       target: { tabId: details.tabId },
       function: getA11yScores,
     });
+  }
   },
-  { urls: ["*://*.google.com/search?q=*"] }
+  { urls: [`*:\/\/*.google.com/search?q=*`] }
 );
 chrome.runtime.onInstalled.addListener(async () => {
   // Create a tab and display our current index.html file
