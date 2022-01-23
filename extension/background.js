@@ -72,6 +72,7 @@ async function getA11yScores() {
             linkTextElement.innerHTML = "Ha11y Loading - " + originalHTML;
             // The following line should be considered make the app messier rather than more beneficial
             //linkTextElement.setAttribute("aria-live","polite");
+            //linkTextElement.setAttribute("aria-live","polite");
 
             fetch(apiUrl)
               .then((results) => {
@@ -92,6 +93,7 @@ async function getA11yScores() {
                     linkTextElement.innerHTML = `Ha11y Error - ` +
                       originalHTML + ` - Ha11y error from the API was ${json.errors}`;
                   }
+
                 }
               })
               .catch((error) => {
@@ -108,6 +110,7 @@ async function getA11yScores() {
                   linkTextElement.innerHTML =
                     "Ha11y Web GET Request Error - " + originalHTML + ` - Ha11y Server Error was ${error.toString()}`;
                 }
+
               });
           }
         }
