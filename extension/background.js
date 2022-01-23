@@ -22,12 +22,15 @@ async function getA11yScores() {
           // Adds a container with text score loading as the first child in each of the containers.
           let gContainer = linkElement.parentNode.parentNode.parentNode.parentNode;
           if (!linkElement.hasAttribute('role') && gContainer.classList.contains('g') && linkElement.hasAttribute('data-ved') && !linkElement.getAttribute('href').startsWith('/search') && !gContainer.firstChild.innerHTML.startsWith('Score:')) {
-
-            let score = document.createElement("span");
-            gContainer.insertBefore(score, gContainer.firstChild);
+            console.log(linkElement);
+            let linkText= linkElement.getElementsByTagName('h3')[0];
+            console.log(linkText);
+            let originalHTML = linkText.innerHTML;
+            linkText.innerHTML = "Ha11y Loading - "+originalHTML;
+            // The following line should be considered make the app messier rather than more beneficial
+            //linkText.setAttribute("aria-live","polite");
             // Pass each of the URLs to be scanned by the API
             // NOTE: We encode the URI component so the special characters do not break the link.
-            score.innerHTML = 'Score: Loading';
             let apiUrl = `http://localhost:8080?url=${encodeURIComponent(linkElement.href)}&disabilities=${ending}`
 
             try {
@@ -36,14 +39,14 @@ async function getA11yScores() {
               }).then(json => {
                 if (json.issues) {
                   // Temporary hack for displaying the results from the API
-                  score.innerHTML = `Score: ${json.issues} errors`;
+                  linkText.innerHTML = `Ha11y Score ${json.score} - `+originalHTML;
                 } else {
                   // This should never happen but we should be prepared to handle this.
-                  score.innerHTML = `Ha11y could not process this link - Error was ${json.error}`;
+                  linkText.innerHTML = `Ha11y Error `+originalHTML+` - Ha11y error was ${json.errors}`;
                 }
               }).catch((error) => {
                 console.log(error);
-                score.innerHTML = `The Ha11y server is not reachable due to ${error.toString()}`;
+                linkText.innerHTML = 'Ha11y Error ' + originalHTML + ` - Ha11y Server Error was ${error.toString()}`;
               });
             } catch (err) {
               console.log(err);
