@@ -22,9 +22,7 @@ async function getA11yScores() {
           // Adds a container with text score loading as the first child in each of the containers.
           let gContainer = linkElement.parentNode.parentNode.parentNode.parentNode;
           let gContainerTwo = linkElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-          console.log(linkElement);
-          console.log(gContainer);
-          if (!linkElement.hasAttribute('role') && (gContainer.classList.contains('g') ||gContainerTwo.classList.contains('g') ||gContainerTwo.tagName.toLowerCase()=='li') && linkElement.hasAttribute('data-ved') && !linkElement.getAttribute('href').startsWith('/search')) {
+          if (!linkElement.hasAttribute('role') && (gContainer.classList.contains('g') || gContainerTwo.classList.contains('g') || gContainerTwo.tagName.toLowerCase()=='li') && linkElement.hasAttribute('data-ved') && !linkElement.getAttribute('href').startsWith('/search')) {
             let linkText= linkElement.getElementsByTagName('h3')[0];
             let originalHTML = linkText.innerHTML;
             linkText.innerHTML = "Ha11y Loading - "+originalHTML;
