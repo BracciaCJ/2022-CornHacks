@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("./app");
-
+jest.setTimeout(30000);
 describe("GET / ", () => {
   test("It should respond with an error stating url was not defined", async () => {
     // Ensure that when a URL is not passed that the API returns a JSON object with an error field.
@@ -16,14 +16,7 @@ describe("GET different testing urls", () => {
     const response = await request(app).get("/?url=google.com");
     expect(response.body['issues']).toBeUndefined();
     // This site's score may change over time.
-    expect(response.body['score']).toBeDefined();
-    expect(response.statusCode).toBe(200);
-  });
-  test("It should respond with an error stating url was not defined", async () => {
-    const response = await request(app).get("/?url=google.com");
-    expect(response.body['issues']).toBeUndefined();
-    // This site's score may change over time.
-    expect(response.body['score']).toBe('Failed to read URL from string');
+    expect(response.body['totalScore']).toBeDefined();
     expect(response.statusCode).toBe(200);
   });
 });
