@@ -28,11 +28,17 @@ body {
 }
 
 .sub-title {
-  margin-top: 20px;
+  margin-top: 30px;
   font-size: 24pt;
 }
 
 .description {
   margin-top: 10px;
   font-size: 14pt;
+}
+
+.submit-button {
+  margin-top: 10px;
+  font-size: 14pt;
+  border-radius: 3px;
 }
