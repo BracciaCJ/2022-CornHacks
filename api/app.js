@@ -24,14 +24,14 @@ app.get('/', async function(req, res) {
     let sightedKeyboardUsersIndex = disabilities.search("s");
     let lowVisionIndex = disabilities.search("l");
         
-    let isBlind;
-    let isDeaf;
-    let isColorBlind;
-    let isMotor;
-    let isCognitive;
-    let isAttentionDeficit;
-    let isSightedKeyboardUsers;
-    let isLowVision;
+    let isBlind = false;
+    let isDeaf = false;
+    let isColorBlind = false;
+    let isMotor = false;
+    let isCognitive = false;
+    let isAttentionDeficit = false;
+    let isSightedKeyboardUsers = false;
+    let isLowVision = false;
 
 
     if (disabilities.charAt(blindIndex+1) == 't'){
