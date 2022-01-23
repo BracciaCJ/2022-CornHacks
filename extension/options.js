@@ -20,9 +20,14 @@ function save_options(event) {
 }
 
 function on_load(){
+  let inputs = document.getElementsByTagName('input');
+  for(var input of inputs){
+    if(input.getAttribute("type")=="checkbox"){
+        input.addEventListener("change",save_options);
+    }
+  }
   restore_options();
-  document.getElementById("disability-submit").addEventListener("click", save_options);
-
+  
 }
 function restore_options() {
   // Use default value blind = false, deaf = false, colorBlind = false
