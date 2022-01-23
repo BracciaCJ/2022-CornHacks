@@ -34,11 +34,11 @@ async function getA11yScores() {
           let gContainer = linkElement.parentNode.parentNode.parentNode.parentNode;
           let gContainerTwo = linkElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
           console.log(linkElement);
-          if (!linkElement.hasAttribute('role') && (linkElement.classList.contains('l') || gContainer.classList.contains('g') || gContainerTwo.classList.contains('g') || gContainerTwo.tagName.toLowerCase() == 'li') && linkElement.hasAttribute('data-ved') && !linkElement.getAttribute('href').startsWith('/search')) {
+          if (!linkElement.hasAttribute('role') && (linkElement.classList.contains('l') || linkElement.classList.contains('fl') || gContainer.classList.contains('g') || gContainerTwo.classList.contains('g') || gContainerTwo.tagName.toLowerCase() == 'li') && !linkElement.getAttribute('href').startsWith('/search')) {
             // Pass each of the URLs to be scanned by the API
             // NOTE: We encode the URI component so the special characters do not break the link.
             let apiUrl = `http://localhost:8080?url=${encodeURIComponent(linkElement.href)}&disabilities=${ending}`
-            if (linkElement.classList.contains('l')) {
+            if (linkElement.classList.contains('l')||linkElement.classList.contains('fl')) {
               let storedLinkElement = linkElement;
               let originalHTML = linkElement.innerHTML;
 
