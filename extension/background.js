@@ -56,7 +56,6 @@ async function getA11yScores() {
               linkElement.href
             )}&disabilities=${ending}`;
             let linkTextElement = undefined;
-            let originalHTML = "";
             if (linkElement.classList.contains("WlydOe")) {
               linkTextElement = linkElement.getElementsByClassName("mCBkyc")[0];
             } else if (
